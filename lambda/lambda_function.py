@@ -465,32 +465,88 @@ class GetNearRelativesIntentHandler(AbstractRequestHandler):
         )
 
 
-
-class GetBirthdayIntentHandler(AbstractRequestHandler):
+class TalkToAnotherAncestorIntentHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
     def can_handle(self, handler_input):
     # type: (HandlerInput) -> bool
 
-        return (
-        ask_utils.is_request_type("IntentRequest")(handler_input)
-            and ask_utils.is_intent_name("GetBirthdayIntent")(handler_input)
-        )
+        #return (
+        #ask_utils.is_request_type("IntentRequest")(handler_input)
+        #    and ask_utils.is_intent_name("GetAnswerOne")(handler_input)
+        #)
+        
+        
+        return ask_utils.is_intent_name("TalkToAnotherAncestorIntent")(handler_input)
+        
+        
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        #speak_output =  f"Welcome to the Yes handler."
         
-        year = ask_utils.request_util.get_slot(handler_input, "year").value
-        month = ask_utils.request_util.get_slot(handler_input, "month").value
+        
 
-        # Share the answer
-        speak_output = f'Your answer was {month} of {year}. Would you like to try again?'
+        # get the current session attributes, creating an object you can read/update
+        session_attributes = handler_input.attributes_manager.session_attributes
         
-        #speak_output =  f"bienvenido a secretos familiares. " \
-        #    f"Soy la medium Madame alexa y puedo comunicarme con " \
-        #    f"tus ancestros, hablar a traves mio y responder tus preguntas " \
-        #    f"para encontrar la llave al tesoro " \
-        #    f"Would you like to play?"
+        ancestor = session_attributes["current_ancestor"]
+        
+        #bring the funtion to read ancestors from the json
+        from ancestorsFuntions import get_ancestor
+        
+        
+        arrayConexiones = ancestor["conexiones"]
+        arrayRelatives = []
+        
+        
+        #Toma los valores de la conexiónes del ancestro presente y revisa si tiene conyuge, padre, madre e hija(o) en ese orden. los coloca en una variable.
+        numeroPrueba = arrayConexiones[0]
+        if numeroPrueba>0:
+            arrayRelatives.append(get_ancestor(numeroPrueba-1))
+        
+        numeroPrueba = arrayConexiones[1]
+        if numeroPrueba>0:
+            arrayRelatives.append(get_ancestor(numeroPrueba-1))
+            
+        numeroPrueba = arrayConexiones[2]
+        if numeroPrueba>0:
+            arrayRelatives.append(get_ancestor(numeroPrueba-1))
+        
+        numeroPrueba = arrayConexiones[3]
+        if numeroPrueba>0:
+            arrayRelatives.append(get_ancestor(numeroPrueba-1))
+        
+        #Here you recognize the person teh player is asking you about.
+        relative = ask_utils.request_util.get_slot(handler_input, "familiar").value
+        
+        
+        
+        number2SwitchRelative = 0
+        isRelativeHere = False
+        for xFamiliar in arrayRelatives:
+            if xFamiliar["parentesco"] == relative:
+                isRelativeHere = True
+                
+                number2SwitchRelative = xFamiliar["id"]
+                number2SwitchRelative = number2SwitchRelative-1
+                
+                session_attributes["current_ancestor"] = get_ancestor(number2SwitchRelative)
+                ancestor = session_attributes["current_ancestor"]
+                
+            
+        #speak to the player and tells him that she is switching relatives if this relative is near
+        if isRelativeHere == True:
+            speak_output = f'entiendo, canalizando a tu {ancestor["parentesco"]}, mmmmm, ahora estas hablando con {ancestor["nombre"]} tu {ancestor["parentesco"]}'
+        
+        else:
+            speak_output = f'Lo siento, Aqui no esta ese familiar'
+         
+          
+        
+        #speak_output = f' el valor de isRelativeHere es {isRelativeHere}, y el de number2SwitchRelative es {number2SwitchRelative}'
+        
+        
+        
+        
 
         #====================================================================
         # Add a visual with Alexa Layouts
@@ -509,8 +565,8 @@ class GetBirthdayIntentHandler(AbstractRequestHandler):
                         #====================================================================
                         # Set a headline and subhead to display on the screen if there is one
                         #====================================================================
-                        "Title": f'{month}, {year}',
-                        "Subtitle": 'Try again?',
+                        "Title": 'en contruccion',
+                        "Subtitle": 'Perdone las molestias',
                         #"Title": 'Y dijiste "SI"!!', 
                         #"Subtitle": 'Juguemos secretos familiares',  #"Subtitle": 'Play secretos familiares.',
                     }
@@ -523,11 +579,6 @@ class GetBirthdayIntentHandler(AbstractRequestHandler):
                 .ask(speak_output)
                 .response
         )
-        
-        
-
-
-
 
 
 
@@ -670,7 +721,7 @@ sb.add_request_handler(PlayGameHandler())
 sb.add_request_handler(GetAnswerOneIntentHandler())
 sb.add_request_handler(GetCurrentAncestorIntentHandler())
 sb.add_request_handler(GetNearRelativesIntentHandler())
-sb.add_request_handler(GetBirthdayIntentHandler())
+sb.add_request_handler(TalkToAnotherAncestorIntentHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
