@@ -18,6 +18,8 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
+from roomFunctions import get_rooms
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -581,6 +583,49 @@ class TalkToAnotherAncestorIntentHandler(AbstractRequestHandler):
         )
 
 
+class GuessKeyLocationIntentHandler(AbstractRequestHandler):
+    """Handler para intentar adivinar la localizacion de la llave"""
+    
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return (
+            ask_utils.is_request_type("IntentRequest")(handler_input) 
+                and ask_utils.is_intent_name("GuessKeyLocationIntentHandler")
+        )
+    
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        speak_output = f"Bajo construccion."
+
+        #====================================================================
+        # Add a visual with Alexa Layouts
+        #====================================================================
+        # Import an Alexa Presentation Language (APL) template
+        with open("./documents/APL_simple.json") as apl_doc:
+            apl_simple = json.load(apl_doc)
+
+        if ask_utils.get_supported_interfaces(
+            handler_input).alexa_presentation_apl is not None:
+            handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                document=apl_simple,
+                datasources={
+                    "myData": {
+                        #====================================================================
+                        # Set a headline and subhead to display on the screen if there is one
+                        #====================================================================
+                        "Title": 'en contruccion',
+                        "Subtitle": 'Perdone las molestias',
+                    }
+                }
+            )
+        )
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(speak_output)
+                .response
+        )
 
 
 class HelloWorldIntentHandler(AbstractRequestHandler):
@@ -722,6 +767,7 @@ sb.add_request_handler(GetAnswerOneIntentHandler())
 sb.add_request_handler(GetCurrentAncestorIntentHandler())
 sb.add_request_handler(GetNearRelativesIntentHandler())
 sb.add_request_handler(TalkToAnotherAncestorIntentHandler())
+sb.add_request_handler(GuessKeyLocationIntentHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
