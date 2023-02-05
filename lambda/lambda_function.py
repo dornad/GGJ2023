@@ -18,7 +18,7 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
-from roomFunctions import get_rooms
+from roomFunctions import get_rooms, check_answer
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -588,14 +588,63 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
     
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
+        
+        logger.info("In GuessKeyLocationIntentHandler.can_handle")
+        
         return (
-            ask_utils.is_request_type("IntentRequest")(handler_input) 
-                and ask_utils.is_intent_name("GuessKeyLocationIntentHandler")
+            ask_utils.is_request_type("IntentRequest")(handler_input)
+            and ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
         )
+        # return ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
     
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = f"Bajo construccion."
+        
+        logger.info("In GuessKeyLocationIntentHandler.handle")
+        
+        # get the slot values
+        room = None
+        slot = ask_utils.request_util.get_slot(handler_input, "room")
+        if slot is not None:
+            room = slot.value
+        
+        logger.info(f"room = {room}")
+        
+        if room == None:
+            # If there's no room, assume that the player's input was the 
+            # "question"
+            all_rooms = get_rooms()
+            logger.info(f"all_rooms = {all_rooms}")
+            speak_output = f"Ok, estos son los cuartos disponibles: {all_rooms}." \
+                f"Cual cuarto es?"
+            return (
+                handler_input.response_builder
+                    .speak(speak_output)
+                    .ask(speak_output)
+                    .response
+            )
+            
+        logger.info(f"checking answer...")
+        
+        # variables for our visual.
+        title = ""
+        subtitle = ""
+        
+        # if there's an answer, check it against the true option
+        if check_answer(room):
+            logger.info(f"success")
+            # success, let the player know
+            # TODO: Handle end_of_game state, so we can start again
+            title = "Felicitaciones!"
+            subtitle = "Bien hecho!"
+            speak_output = f"Asi es!  La llave esta en {room}." \
+                f"El capitulo 2 de esta aventura estara disponible en GGJ 2024 😉"
+        else:
+            logger.info(f"failure")
+            # not the correct one.
+            title = "Hmmm, 🤔!"
+            subtitle = "Quieres intentar de nuevo?"
+            speak_output = f"Esa no es la ubicacion de la llave. Quieres intentar de nuevo?"
 
         #====================================================================
         # Add a visual with Alexa Layouts
@@ -614,8 +663,8 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
                         #====================================================================
                         # Set a headline and subhead to display on the screen if there is one
                         #====================================================================
-                        "Title": 'en contruccion',
-                        "Subtitle": 'Perdone las molestias',
+                        "Title": title,
+                        "Subtitle": subtitle,
                     }
                 }
             )
