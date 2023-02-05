@@ -1,0 +1,11 @@
+
+[
+  {"id":1, "nombre":"Mario Guardado", "parentesco":"Padre", "respuesta1":"yo morí al pisar al perro en el jardin", "conexiones":[2,3,4,0]},
+  {"id":2, "nombre":"Luisa Diaz", "parentesco":"Madre", "respuesta1":"yo morí por caer desde el balcón", "conexiones":[1,5,6,0]},
+  {"id":3, "nombre":"Carlos Guardado", "parentesco":"Abuelo Paterno", "respuesta1":"yo morí inmolado en la cocina", "conexiones":[4,7,8,1]},
+  {"id":4, "nombre":"Marta Izquierdo", "parentesco":"Abuela Paterna", "respuesta1":"yo morí peleando con piratas en la azotea", "conexiones":[3,0,0,1]},
+  {"id":5, "nombre":"Manuel Diaz", "parentesco":"Abuelo Materno", "respuesta1":"yo morí Ahogado cantando en la ducha", "conexiones":[6,0,0,2]},
+  {"id":6, "nombre":"juanita Vera", "parentesco":"Abuela materna", "respuesta1":"yo morí en el sotano tratando de abrir la puerta con la llave equivocada", "conexiones":[5,0,0,2]},
+  {"id":7, "nombre":"Arturo Guardado", "parentesco":"Bisabuelo Paterno", "respuesta1":"yo morí de tos mientras fumaba habanos en la sala", "conexiones":[8,0,0,3]},
+  {"id":8, "nombre":"Patricia Martinez", "parentesco":"Bisabuela paterna", "respuesta1":"yo morí por un tiro por la culata en el porche", "conexiones":[7,0,0,3]}
+]
