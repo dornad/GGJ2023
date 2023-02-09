@@ -591,10 +591,11 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
         
         logger.info("In GuessKeyLocationIntentHandler.can_handle")
         
-        return (
-            ask_utils.is_request_type("IntentRequest")(handler_input)
-            and ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
-        )
+        result = ask_utils.is_request_type("IntentRequest")(handler_input) and ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
+        
+        logger.info(f"GuessKeyLocationIntentHandler.can_handle = {result}")
+        
+        return result
         # return ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
     
     def handle(self, handler_input):
@@ -603,15 +604,15 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
         logger.info("In GuessKeyLocationIntentHandler.handle")
         
         # get the slot values
-        room = None
-        slot = ask_utils.request_util.get_slot(handler_input, "room")
+        location = None
+        slot = ask_utils.request_util.get_slot(handler_input, "location")
         if slot is not None:
-            room = slot.value
+            location = slot.value
         
-        logger.info(f"room = {room}")
+        logger.info(f"location = {location}")
         
-        if room == None:
-            # If there's no room, assume that the player's input was the 
+        if location == None:
+            # If there's no room/location, assume that the player's input was the 
             # "question"
             all_rooms = get_rooms()
             logger.info(f"all_rooms = {all_rooms}")
@@ -631,13 +632,13 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
         subtitle = ""
         
         # if there's an answer, check it against the true option
-        if check_answer(room):
+        if check_answer(location):
             logger.info(f"success")
             # success, let the player know
             # TODO: Handle end_of_game state, so we can start again
             title = "Felicitaciones!"
             subtitle = "Bien hecho!"
-            speak_output = f"Asi es!  La llave esta en {room}." \
+            speak_output = f"Asi es!  La llave esta en {location}." \
                 f"El capitulo 2 de esta aventura estara disponible en GGJ 2024 😉"
         else:
             logger.info(f"failure")
