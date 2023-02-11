@@ -132,9 +132,9 @@ class PlayGameHandler(AbstractRequestHandler):
         
         #speak to the player and tells him about the first ancestor to play with
         speak_output = f'Esta bien, ahora estoy conectando con tu {ancestor["parentesco"]}, {ancestor["nombre"]}, que quieres hacer?'
-        
-        
-        
+        #speak_output = "<speak><voice name='Miguel'><lang xml:lang='es-US'>te quiero contar un secreto </lang></voice><speak>"
+        #speak_output = "<speak><voice name='Brian'><lang xml:lang='en-GB'>Your secret is safe with me!</lang></voice></speak>"
+        #speak_output = "<speak><voice name='Enrique'><lang xml:lang='es-ES'>te quiero contar un secreto </lang></voice></speak>"
         
         
 
@@ -217,13 +217,14 @@ class GetAnswerOneIntentHandler(AbstractRequestHandler):
 
         #Activate the funtion that handles the json of ancestors to get an ancestor
         cAnswer = session_attributes["current_ancestor"]["respuesta1"]
+        ancVoice = session_attributes["current_ancestor"]["voz"]
         
         nameAncestor = session_attributes["current_ancestor"]["nombre"]     
         
         
         #speak to the player and tells him about the first ancestor to play with
-        speak_output = f'{cAnswer}'
-        
+        #speak_output = f'{cAnswer}'
+        speak_output = f"<speak> {ancVoice} {cAnswer} </lang></voice></speak>"
          
         
         
@@ -309,13 +310,13 @@ class GetCurrentAncestorIntentHandler(AbstractRequestHandler):
         #Activate the funtion that handles the json of ancestors to get an ancestor
         cAncestorName = session_attributes["current_ancestor"]["nombre"]
         cAncestorRelation = session_attributes["current_ancestor"]["parentesco"]
+        ancVoice = session_attributes["current_ancestor"]["voz"]
         
         #nameAncestor = session_attributes["current_ancestor"]["nombre"]     
         
         
         #speak to the player and tells him about the first ancestor to play with
-        speak_output = f'soy {cAncestorName} y soy tu {cAncestorRelation}'
-        
+        speak_output = f"<speak> {ancVoice} soy {cAncestorName} y soy tu {cAncestorRelation} </lang></voice></speak>"
          
         
         
