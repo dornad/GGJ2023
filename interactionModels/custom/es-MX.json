@@ -105,7 +105,26 @@
                   "samples": [
                       "Quiero hablar con mi {familiar}"
                   ]
-              }
+              },
+              {
+                "name": "GuessKeyLocationIntent",
+                "slots": [
+                    {
+                        "name": "location",
+                        "type": "AMAZON.Room"
+                    }
+                ],
+                "samples": [
+                    "la llave esta en el {location}",
+                    "la {location}",
+                    "el {location}",
+                    "la llave esta en la {location}",
+                    "{location}",
+                    "la llave esta en {location}",
+                    "llave",
+                    "quiero adivinar donde esta la llave"
+                ]
+            }
           ],
           "types": [
               {
@@ -144,7 +163,7 @@
                       {
                           "name": {
                               "value": "madre"
-                          }
+      }
                       },
                       {
                           "name": {
