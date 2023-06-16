@@ -1,7 +1,7 @@
 import json
 
 ROOMS = []
-CORRECT_ROOM = "sotano"
+CORRECT_ROOM = "sótano"
 
 with open("./documents/cuartos.json") as cuartos_json_doc:
     ROOMS = json.load(cuartos_json_doc)

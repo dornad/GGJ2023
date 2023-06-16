@@ -538,7 +538,8 @@ class TalkToAnotherAncestorIntentHandler(AbstractRequestHandler):
             
         #speak to the player and tells him that she is switching relatives if this relative is near
         if isRelativeHere == True:
-            speak_output = f'entiendo, canalizando a tu {ancestor["parentesco"]}, mmmmm, ahora estas hablando con {ancestor["nombre"]} tu {ancestor["parentesco"]}'
+            #speak_output = f'entiendo, canalizando a tu {ancestor["parentesco"]}, mmmmm, ahora estas hablando con {ancestor["nombre"]} tu {ancestor["parentesco"]}'
+            speak_output = f'<speak> entiendo, canalizando a tu {ancestor["parentesco"]}, <audio src="soundbank://soundlibrary/bell/chimes/chimes_08"/>, ahora estas hablando con {ancestor["nombre"]} tu {ancestor["parentesco"]}</speak>'
         
         else:
             speak_output = f'Lo siento, Aqui no esta ese familiar'
@@ -639,7 +640,7 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
             # TODO: Handle end_of_game state, so we can start again
             title = "Felicitaciones!"
             subtitle = "Bien hecho!"
-            speak_output = f"Asi es!  La llave esta en {location}." \
+            speak_output = f"Asi es!  La llave esta en {location}.  " \
                 f"El capitulo 2 de esta aventura estara disponible en GGJ 2024 😉"
         else:
             logger.info(f"failure")
@@ -677,6 +678,159 @@ class GuessKeyLocationIntentHandler(AbstractRequestHandler):
                 .ask(speak_output)
                 .response
         )
+        
+        
+        
+class GetAnswerTwoIntentHandler(AbstractRequestHandler):
+    """Handler for Skill Launch."""
+    def can_handle(self, handler_input):
+    # type: (HandlerInput) -> bool
+
+        #return (
+        #ask_utils.is_request_type("IntentRequest")(handler_input)
+        #    and ask_utils.is_intent_name("GetAnswerOne")(handler_input)
+        #)
+        
+        
+        return ask_utils.is_intent_name("GetAnswerTwoIntent")(handler_input)
+        
+        
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        
+        # get the current session attributes, creating an object you can read/update
+        session_attributes = handler_input.attributes_manager.session_attributes
+        
+        
+
+        # Check for past celebrities array and create it if not available
+        #if 'past_celebs' not in session_attributes.keys():
+        #    session_attributes["past_celebs"] = []
+
+        #Activate the funtion that handles the json of ancestors to get an ancestor
+        cAnswer2 = session_attributes["current_ancestor"]["respuesta2"]
+        ancVoice = session_attributes["current_ancestor"]["voz"]
+        
+        nameAncestor = session_attributes["current_ancestor"]["nombre"]     
+        
+        
+        #speak to the player and tells him about the first ancestor to play with
+        #speak_output = f'{cAnswer}'
+        speak_output = f"<speak> {ancVoice} {cAnswer2} </lang></voice></speak>"
+         
+        
+        
+        
+
+        #====================================================================
+        # Add a visual with Alexa Layouts
+        #====================================================================
+        # Import an Alexa Presentation Language (APL) template
+        with open("./documents/APL_simple.json") as apl_doc:
+            apl_simple = json.load(apl_doc)
+
+        if ask_utils.get_supported_interfaces(
+            handler_input).alexa_presentation_apl is not None:
+            handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                document=apl_simple,
+                datasources={
+                    "myData": {
+                        #====================================================================
+                        # Set a headline and subhead to display on the screen if there is one
+                        #====================================================================
+                        "Title": nameAncestor,
+                        "Subtitle": 'Que te esta diciendo?',
+                        #"Title": 'Y dijiste "SI"!!', 
+                        #"Subtitle": 'Juguemos secretos familiares',  #"Subtitle": 'Play secretos familiares.',
+                    }
+                }
+            )
+        )
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(speak_output)
+                .response
+        )
+
+
+
+class GetAnswerThreeIntentHandler(AbstractRequestHandler):
+    """Handler for Skill Launch."""
+    def can_handle(self, handler_input):
+    # type: (HandlerInput) -> bool
+
+        #return (
+        #ask_utils.is_request_type("IntentRequest")(handler_input)
+        #    and ask_utils.is_intent_name("GetAnswerOne")(handler_input)
+        #)
+        
+        
+        return ask_utils.is_intent_name("GetAnswerThreeIntent")(handler_input)
+        
+        
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        
+        # get the current session attributes, creating an object you can read/update
+        session_attributes = handler_input.attributes_manager.session_attributes
+        
+        
+
+        # Check for past celebrities array and create it if not available
+        #if 'past_celebs' not in session_attributes.keys():
+        #    session_attributes["past_celebs"] = []
+
+        #Activate the funtion that handles the json of ancestors to get an ancestor
+        cAnswer3 = session_attributes["current_ancestor"]["respuesta3"]
+        ancVoice = session_attributes["current_ancestor"]["voz"]
+        
+        nameAncestor = session_attributes["current_ancestor"]["nombre"]     
+        
+        
+        #speak to the player and tells him about the first ancestor to play with
+        #speak_output = f'{cAnswer}'
+        speak_output = f"<speak> {ancVoice} {cAnswer3} </lang></voice></speak>"
+         
+        
+        
+        
+
+        #====================================================================
+        # Add a visual with Alexa Layouts
+        #====================================================================
+        # Import an Alexa Presentation Language (APL) template
+        with open("./documents/APL_simple.json") as apl_doc:
+            apl_simple = json.load(apl_doc)
+
+        if ask_utils.get_supported_interfaces(
+            handler_input).alexa_presentation_apl is not None:
+            handler_input.response_builder.add_directive(
+            RenderDocumentDirective(
+                document=apl_simple,
+                datasources={
+                    "myData": {
+                        #====================================================================
+                        # Set a headline and subhead to display on the screen if there is one
+                        #====================================================================
+                        "Title": nameAncestor,
+                        "Subtitle": 'Que te esta diciendo?',
+                        #"Title": 'Y dijiste "SI"!!', 
+                        #"Subtitle": 'Juguemos secretos familiares',  #"Subtitle": 'Play secretos familiares.',
+                    }
+                }
+            )
+        )
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .ask(speak_output)
+                .response
+        )
+        
 
 
 class HelloWorldIntentHandler(AbstractRequestHandler):
@@ -819,6 +973,8 @@ sb.add_request_handler(GetCurrentAncestorIntentHandler())
 sb.add_request_handler(GetNearRelativesIntentHandler())
 sb.add_request_handler(TalkToAnotherAncestorIntentHandler())
 sb.add_request_handler(GuessKeyLocationIntentHandler())
+sb.add_request_handler(GetAnswerTwoIntentHandler())
+sb.add_request_handler(GetAnswerThreeIntentHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
