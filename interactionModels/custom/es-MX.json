@@ -1,7 +1,37 @@
 {
   "interactionModel": {
+    "dialog": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "month",
+              "elicitationRequired": true,
+              "type": "AMAZON.Month",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.494907952316.1371617466960"
+              }
+            },
+            {
+              "name": "year",
+              "elicitationRequired": true,
+              "type": "AMAZON.FOUR_DIGIT_NUMBER",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.494907952316.1522339563533"
+              }
+            }
+          ],
+          "name": "GetBirthdayIntent",
+          "delegationStrategy": "ALWAYS",
+          "confirmationRequired": false,
+          "prompts": {}
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
     "languageModel": {
-      "invocationName": "secretos familiares",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -20,8 +50,8 @@
           "samples": []
         },
         {
-          "name": "HelloWorldIntent",
           "slots": [],
+          "name": "HelloWorldIntent",
           "samples": [
             "hola",
             "como estás",
@@ -39,7 +69,6 @@
           "samples": []
         },
         {
-          "name": "GetBirthdayIntent",
           "slots": [
             {
               "name": "month",
@@ -56,14 +85,15 @@
               ]
             }
           ],
+          "name": "GetBirthdayIntent",
           "samples": [
             "he was born in {month} of {year} ",
             "{month} {year} "
           ]
         },
         {
-          "name": "GetAnswerOneIntent",
           "slots": [],
+          "name": "GetAnswerOneIntent",
           "samples": [
             "de que moriste",
             "como fue tu muerte",
@@ -74,8 +104,8 @@
           ]
         },
         {
-          "name": "GetCurrentAncestorIntent",
           "slots": [],
+          "name": "GetCurrentAncestorIntent",
           "samples": [
             "quien eres",
             "Quien esta contigo",
@@ -83,8 +113,8 @@
           ]
         },
         {
-          "name": "GetNearRelativesIntent",
           "slots": [],
+          "name": "GetNearRelativesIntent",
           "samples": [
             "quien mas esta aqui en este cuarto",
             "quien mas esta aqui",
@@ -95,13 +125,13 @@
           ]
         },
         {
-          "name": "TalkToAnotherAncestorIntent",
           "slots": [
             {
               "name": "familiar",
               "type": "familiar"
             }
           ],
+          "name": "TalkToAnotherAncestorIntent",
           "samples": [
             "Quiero hablar con mi {familiar}"
           ]
@@ -153,59 +183,28 @@
           ],
           "name": "familiar"
         }
-      ]
-    },
-    "dialog": {
-      "intents": [
-        {
-          "name": "GetBirthdayIntent",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
-            {
-              "name": "month",
-              "type": "AMAZON.Month",
-              "elicitationRequired": true,
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.494907952316.1371617466960"
-              }
-            },
-            {
-              "name": "year",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER",
-              "elicitationRequired": true,
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.494907952316.1522339563533"
-              }
-            }
-          ],
-          "delegationStrategy": "ALWAYS"
-        }
       ],
-      "delegationStrategy": "ALWAYS"
+      "invocationName": "secretos familiares"
     },
     "prompts": [
       {
-        "id": "Elicit.Slot.494907952316.1371617466960",
         "variations": [
           {
             "type": "PlainText",
             "value": "Thanks. What month were they born in?"
           }
-        ]
+        ],
+        "id": "Elicit.Slot.494907952316.1371617466960"
       },
       {
-        "id": "Elicit.Slot.494907952316.1522339563533",
         "variations": [
           {
             "type": "PlainText",
             "value": "Thanks. What year were they born in?"
           }
-        ]
+        ],
+        "id": "Elicit.Slot.494907952316.1522339563533"
       }
     ]
-  },
-  "version": "13"
+  }
 }

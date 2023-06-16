@@ -1,11 +1,11 @@
 
 [
-  {"id":1, "nombre":"Mario Guardado", "parentesco":"padre", "respuesta1":"yo morí al pisar al perro en el jardin", "conexiones":[2,3,4,0]},
-  {"id":2, "nombre":"Luisa Diaz", "parentesco":"madre", "respuesta1":"yo morí por caer desde el balcón", "conexiones":[1,5,6,0]},
-  {"id":3, "nombre":"Carlos Guardado", "parentesco":"abuelo paterno", "respuesta1":"yo morí inmolado en la cocina", "conexiones":[4,7,8,1]},
-  {"id":4, "nombre":"Marta Izquierdo", "parentesco":"abuela paterna", "respuesta1":"yo morí peleando con piratas en la azotea", "conexiones":[3,0,0,1]},
-  {"id":5, "nombre":"Manuel Diaz", "parentesco":"abuelo materno", "respuesta1":"yo morí Ahogado cantando en la ducha", "conexiones":[6,0,0,2]},
-  {"id":6, "nombre":"juanita Vera", "parentesco":"abuela materna", "respuesta1":"yo morí en el sotano tratando de abrir la puerta con la llave equivocada", "conexiones":[5,0,0,2]},
-  {"id":7, "nombre":"Arturo Guardado", "parentesco":"bisabuelo paterno", "respuesta1":"yo morí de tos mientras fumaba habanos en la sala", "conexiones":[8,0,0,3]},
-  {"id":8, "nombre":"Patricia Martinez", "parentesco":"bisabuela paterna", "respuesta1":"yo morí por un tiro por la culata en el porche", "conexiones":[7,0,0,3]}
+  {"id":1, "nombre":"Mario Guardado", "parentesco":"padre", "respuesta1":"yo morí al pisar al perro en el jardin", "conexiones":[2,3,4,0], "voz":"<voice name='Miguel'><lang xml:lang='es-US'>"}, 
+  {"id":2, "nombre":"Luisa Diaz", "parentesco":"madre", "respuesta1":"yo morí por caer desde el balcón", "conexiones":[1,5,6,0], "voz":"<voice name='Lupe'><lang xml:lang='es-US'>"},
+  {"id":3, "nombre":"Carlos Guardado", "parentesco":"abuelo paterno", "respuesta1":"yo morí inmolado en la cocina", "conexiones":[4,7,8,1], "voz":"<voice name='Enrique'><lang xml:lang='es-ES'>"},
+  {"id":4, "nombre":"Marta Izquierdo", "parentesco":"abuela paterna", "respuesta1":"yo morí peleando con piratas en la azotea", "conexiones":[3,0,0,1], "voz":"<voice name='Conchita'><lang xml:lang='es-ES'>"},
+  {"id":5, "nombre":"Manuel Diaz", "parentesco":"abuelo materno", "respuesta1":"yo morí Ahogado cantando en la ducha", "conexiones":[6,0,0,2], "voz":"<voice name='Ricardo'><lang xml:lang='pt-BR'>"},
+  {"id":6, "nombre":"juanita Vera", "parentesco":"abuela materna", "respuesta1":"yo morí en el sotano tratando de abrir la puerta con la llave equivocada", "conexiones":[5,0,0,2], "voz":"<voice name='Mia'><lang xml:lang='es-MX'>"},
+  {"id":7, "nombre":"Arturo Guardado", "parentesco":"bisabuelo paterno", "respuesta1":"yo morí de tos mientras fumaba habanos en la sala", "conexiones":[8,0,0,3], "voz":"<voice name='Enrique'><lang xml:lang='es-ES'>"},
+  {"id":8, "nombre":"Patricia Martinez", "parentesco":"bisabuela paterna", "respuesta1":"yo morí por un tiro por la culata en el porche", "conexiones":[7,0,0,3], "voz":"<voice name='Lucia'><lang xml:lang='es-ES'>"}
 ]
