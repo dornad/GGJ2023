@@ -1,229 +1,210 @@
 {
   "interactionModel": {
-      "languageModel": {
-          "invocationName": "secretos familiares",
-          "intents": [
-              {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.NavigateHomeIntent",
-                  "samples": []
-              },
-              {
-                  "name": "HelloWorldIntent",
-                  "slots": [],
-                  "samples": [
-                      "hola",
-                      "como estás",
-                      "di hola mundo",
-                      "di hola",
-                      "hola mundo"
-                  ]
-              },
-              {
-                  "name": "AMAZON.FallbackIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.YesIntent",
-                  "samples": []
-              },
-              {
-                  "name": "GetBirthdayIntent",
-                  "slots": [
-                      {
-                          "name": "month",
-                          "type": "AMAZON.Month",
-                          "samples": [
-                              "{month}"
-                          ]
-                      },
-                      {
-                          "name": "year",
-                          "type": "AMAZON.FOUR_DIGIT_NUMBER",
-                          "samples": [
-                              "{year}"
-                          ]
-                      }
-                  ],
-                  "samples": [
-                      "he was born in {month} of {year} ",
-                      "{month} {year} "
-                  ]
-              },
-              {
-                  "name": "GetAnswerOneIntent",
-                  "slots": [],
-                  "samples": [
-                      "de que moriste",
-                      "como fue tu muerte",
-                      "caramba",
-                      "Quiero saber como murio",
-                      "de que murio",
-                      "como murio"
-                  ]
-              },
-              {
-                  "name": "GetCurrentAncestorIntent",
-                  "slots": [],
-                  "samples": [
-                      "quien eres",
-                      "Quien esta contigo",
-                      "Con quien estoy hablando"
-                  ]
-              },
-              {
-                  "name": "GetNearRelativesIntent",
-                  "slots": [],
-                  "samples": [
-                      "quien mas esta aqui en este cuarto",
-                      "quien mas esta aqui",
-                      "quienes estan aqui",
-                      "Quienes estan cerca",
-                      "familiares",
-                      "Quienes son sus familiares"
-                  ]
-              },
-              {
-                  "name": "TalkToAnotherAncestorIntent",
-                  "slots": [
-                      {
-                          "name": "familiar",
-                          "type": "familiar"
-                      }
-                  ],
-                  "samples": [
-                      "Quiero hablar con mi {familiar}"
-                  ]
-              },
-              {
-                "name": "GuessKeyLocationIntent",
-                "slots": [
-                    {
-                        "name": "location",
-                        "type": "AMAZON.Room"
-                    }
-                ],
-                "samples": [
-                    "la llave esta en el {location}",
-                    "la {location}",
-                    "el {location}",
-                    "la llave esta en la {location}",
-                    "{location}",
-                    "la llave esta en {location}",
-                    "llave",
-                    "quiero adivinar donde esta la llave"
-                ]
+    "dialog": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "month",
+              "elicitationRequired": true,
+              "type": "AMAZON.Month",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.494907952316.1371617466960"
+              }
+            },
+            {
+              "name": "year",
+              "elicitationRequired": true,
+              "type": "AMAZON.FOUR_DIGIT_NUMBER",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.494907952316.1522339563533"
+              }
             }
           ],
-          "types": [
-              {
-                  "name": "familiar",
-                  "values": [
-                      {
-                          "name": {
-                              "value": "bisabuela paterna"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "bisabuelo paterno"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "abuela paterna"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "abuelo paterno"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "abuela materna"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "abuelo materno"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "madre"
-      }
-                      },
-                      {
-                          "name": {
-                              "value": "padre"
-                          }
-                      }
-                  ]
-              }
+          "name": "GetBirthdayIntent",
+          "delegationStrategy": "ALWAYS",
+          "confirmationRequired": false,
+          "prompts": {}
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "HelloWorldIntent",
+          "samples": [
+            "hola",
+            "como estás",
+            "di hola mundo",
+            "di hola",
+            "hola mundo"
           ]
-      },
-      "dialog": {
-          "intents": [
-              {
-                  "name": "GetBirthdayIntent",
-                  "delegationStrategy": "ALWAYS",
-                  "confirmationRequired": false,
-                  "prompts": {},
-                  "slots": [
-                      {
-                          "name": "month",
-                          "type": "AMAZON.Month",
-                          "confirmationRequired": false,
-                          "elicitationRequired": true,
-                          "prompts": {
-                              "elicitation": "Elicit.Slot.494907952316.1371617466960"
-                          }
-                      },
-                      {
-                          "name": "year",
-                          "type": "AMAZON.FOUR_DIGIT_NUMBER",
-                          "confirmationRequired": false,
-                          "elicitationRequired": true,
-                          "prompts": {
-                              "elicitation": "Elicit.Slot.494907952316.1522339563533"
-                          }
-                      }
-                  ]
-              }
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "month",
+              "type": "AMAZON.Month",
+              "samples": [
+                "{month}"
+              ]
+            },
+            {
+              "name": "year",
+              "type": "AMAZON.FOUR_DIGIT_NUMBER",
+              "samples": [
+                "{year}"
+              ]
+            }
           ],
-          "delegationStrategy": "ALWAYS"
-      },
-      "prompts": [
+          "name": "GetBirthdayIntent",
+          "samples": [
+            "he was born in {month} of {year} ",
+            "{month} {year} "
+          ]
+        },
+        {
+          "slots": [],
+          "name": "GetAnswerOneIntent",
+          "samples": [
+            "de que moriste",
+            "como fue tu muerte",
+            "caramba",
+            "Quiero saber como murio",
+            "de que murio",
+            "como murio"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "GetCurrentAncestorIntent",
+          "samples": [
+            "quien eres",
+            "Quien esta contigo",
+            "Con quien estoy hablando"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "GetNearRelativesIntent",
+          "samples": [
+            "quien mas esta aqui en este cuarto",
+            "quien mas esta aqui",
+            "quienes estan aqui",
+            "Quienes estan cerca",
+            "familiares",
+            "Quienes son sus familiares"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "familiar",
+              "type": "familiar"
+            }
+          ],
+          "name": "TalkToAnotherAncestorIntent",
+          "samples": [
+            "Quiero hablar con mi {familiar}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "bisabuela paterna"
+              }
+            },
+            {
+              "name": {
+                "value": "bisabuelo paterno"
+              }
+            },
+            {
+              "name": {
+                "value": "abuela paterna"
+              }
+            },
+            {
+              "name": {
+                "value": "abuelo paterno"
+              }
+            },
+            {
+              "name": {
+                "value": "abuela materna"
+              }
+            },
+            {
+              "name": {
+                "value": "abuelo materno"
+              }
+            },
+            {
+              "name": {
+                "value": "madre"
+              }
+            },
+            {
+              "name": {
+                "value": "padre"
+              }
+            }
+          ],
+          "name": "familiar"
+        }
+      ],
+      "invocationName": "secretos familiares"
+    },
+    "prompts": [
+      {
+        "variations": [
           {
-              "id": "Elicit.Slot.494907952316.1371617466960",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "Thanks. What month were they born in?"
-                  }
-              ]
-          },
-          {
-              "id": "Elicit.Slot.494907952316.1522339563533",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "Thanks. What year were they born in?"
-                  }
-              ]
+            "type": "PlainText",
+            "value": "Thanks. What month were they born in?"
           }
-      ]
+        ],
+        "id": "Elicit.Slot.494907952316.1371617466960"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Thanks. What year were they born in?"
+          }
+        ],
+        "id": "Elicit.Slot.494907952316.1522339563533"
+      }
+    ]
   }
 }
