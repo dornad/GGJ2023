@@ -18,8 +18,6 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
-from roomFunctions import get_rooms, check_answer
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -584,99 +582,6 @@ class TalkToAnotherAncestorIntentHandler(AbstractRequestHandler):
         )
 
 
-class GuessKeyLocationIntentHandler(AbstractRequestHandler):
-    """Handler para intentar adivinar la localizacion de la llave"""
-    
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        
-        logger.info("In GuessKeyLocationIntentHandler.can_handle")
-        
-        result = ask_utils.is_request_type("IntentRequest")(handler_input) and ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
-        
-        logger.info(f"GuessKeyLocationIntentHandler.can_handle = {result}")
-        
-        return result
-        # return ask_utils.is_intent_name("GuessKeyLocationIntent")(handler_input)
-    
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        
-        logger.info("In GuessKeyLocationIntentHandler.handle")
-        
-        # get the slot values
-        location = None
-        slot = ask_utils.request_util.get_slot(handler_input, "location")
-        if slot is not None:
-            location = slot.value
-        
-        logger.info(f"location = {location}")
-        
-        if location == None:
-            # If there's no room/location, assume that the player's input was the 
-            # "question"
-            all_rooms = get_rooms()
-            logger.info(f"all_rooms = {all_rooms}")
-            speak_output = f"Ok, estos son los cuartos disponibles: {all_rooms}." \
-                f"Cual cuarto es?"
-            return (
-                handler_input.response_builder
-                    .speak(speak_output)
-                    .ask(speak_output)
-                    .response
-            )
-            
-        logger.info(f"checking answer...")
-        
-        # variables for our visual.
-        title = ""
-        subtitle = ""
-        
-        # if there's an answer, check it against the true option
-        if check_answer(location):
-            logger.info(f"success")
-            # success, let the player know
-            # TODO: Handle end_of_game state, so we can start again
-            title = "Felicitaciones!"
-            subtitle = "Bien hecho!"
-            speak_output = f"Asi es!  La llave esta en {location}." \
-                f"El capitulo 2 de esta aventura estara disponible en GGJ 2024 😉"
-        else:
-            logger.info(f"failure")
-            # not the correct one.
-            title = "Hmmm, 🤔!"
-            subtitle = "Quieres intentar de nuevo?"
-            speak_output = f"Esa no es la ubicacion de la llave. Quieres intentar de nuevo?"
-
-        #====================================================================
-        # Add a visual with Alexa Layouts
-        #====================================================================
-        # Import an Alexa Presentation Language (APL) template
-        with open("./documents/APL_simple.json") as apl_doc:
-            apl_simple = json.load(apl_doc)
-
-        if ask_utils.get_supported_interfaces(
-            handler_input).alexa_presentation_apl is not None:
-            handler_input.response_builder.add_directive(
-            RenderDocumentDirective(
-                document=apl_simple,
-                datasources={
-                    "myData": {
-                        #====================================================================
-                        # Set a headline and subhead to display on the screen if there is one
-                        #====================================================================
-                        "Title": title,
-                        "Subtitle": subtitle,
-                    }
-                }
-            )
-        )
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask(speak_output)
-                .response
-        )
 
 
 class HelloWorldIntentHandler(AbstractRequestHandler):
@@ -818,7 +723,6 @@ sb.add_request_handler(GetAnswerOneIntentHandler())
 sb.add_request_handler(GetCurrentAncestorIntentHandler())
 sb.add_request_handler(GetNearRelativesIntentHandler())
 sb.add_request_handler(TalkToAnotherAncestorIntentHandler())
-sb.add_request_handler(GuessKeyLocationIntentHandler())
 sb.add_request_handler(HelloWorldIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
